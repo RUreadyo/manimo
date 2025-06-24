@@ -100,6 +100,8 @@ class RealSenseCam(Sensor):
         self.hz = camera_cfg.hz
         self.device_id = camera_cfg.device_id
         self.name = camera_cfg.name
+        
+        
         assert self.device_id in device_ls
 
         # window_dur is the duration of the sliding window in seconds
@@ -163,9 +165,12 @@ class RealSenseCam(Sensor):
 
     def get_obs(self):
         obs = {self.name: None}
+
         try:
+            # print("trying to get rgb frame")
             if self.window is None:
                 obs[self.name] = self.rgb_frame_queue.get()
+                obs[f"{self.name}_depth"] = self.depth_frame_queue.get()
 
             else:
                 while not self.rgb_frame_queue.empty():

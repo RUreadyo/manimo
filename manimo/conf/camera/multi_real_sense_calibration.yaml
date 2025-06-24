@@ -1,0 +1,75 @@
+
+cam1:
+  _target_: manimo.sensors.real_sense_camera.RealSenseCam
+  camera_cfg:
+    img_width: 640
+    img_height: 480
+    hz: 30
+    name: "cam1"  
+    device_id: "220422302129" # back, right from person's view
+    buffer_size: 1
+    window_dur: null  # number of seconds to track in buffer
+    warm_start:
+      enabled: True
+      frames: 60
+    intrinsics: [[387.59545898,0.,323.97320557],[0.,387.59545898 ,242.47912598],[0.,0.,1.]]
+    mv_shift: [-0.013000000000000001, 0.04, 0.03000000000000001]
+    workspace_min: [0.12, -0.7, -0.3]
+    workspace_max: [1.0, 0.7, 1.0]
+
+
+cam2:
+  _target_: manimo.sensors.real_sense_camera.RealSenseCam
+  camera_cfg:
+    img_width: 640
+    img_height: 480
+    hz: 30
+    name: "cam2"
+    device_id: "220422302456" # back, left from person's view
+    buffer_size: 1
+    window_dur: null  # number of seconds to track in buffer
+    warm_start:
+      enabled: True
+      frames: 60
+    intrinsics: [[394.63000488,0.,322.71633911],[0. ,394.63000488, 239.61694336],[0.  ,0.,1.]]
+    mv_shift: [-0.0030000000000000027, 1.734723475976807e-18, -2.949029909160572e-17]
+    workspace_min: [0.12, -0.7, -0.3]
+    workspace_max: [1.0, 0.7, 1.0]
+
+
+cam3:
+  _target_: manimo.sensors.real_sense_camera.RealSenseCam
+  camera_cfg:
+    img_width: 640
+    img_height: 480
+    hz: 30
+    name: "cam3"
+    device_id: "239222301150" # front, left from person's view
+    buffer_size: 1
+    window_dur: null  # number of seconds to track in buffer
+    warm_start:
+      enabled: True
+      frames: 60
+    intrinsics: [[391.78173828, 0., 321.49838257 ],[0.,  391.78173828 ,239.741745 ],[0.,0.,1.]]
+    mv_shift: [-0.038, -0.025, -0.020000000000000046]
+    workspace_min: [0.12, -0.7, -0.3]
+    workspace_max: [1.0, 0.7, 1.0]
+
+
+cam4:
+  _target_: manimo.sensors.real_sense_camera.RealSenseCam
+  camera_cfg:
+    img_width: 640
+    img_height: 480
+    hz: 30
+    name: "cam4"
+    device_id: "231622302999" # front, right from person's view
+    buffer_size: 1
+    window_dur: null  # number of seconds to track in buffer
+    warm_start:
+      enabled: True
+      frames: 60
+    intrinsics: [[390.36517334,0. ,322.71798706],[0.,390.36517334 ,243.21356201],[0.,0.,1.]]
+    mv_shift: [-0.01299999999999999, -0.035, -4.336808689942018e-17]
+    workspace_min: [0.12, -0.7, -0.3]
+    workspace_max: [1.0, 0.7, 1.0]

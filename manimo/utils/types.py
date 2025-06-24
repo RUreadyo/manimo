@@ -7,7 +7,7 @@ import numpy.typing as npt
 
 
 class ActionSpace(Enum):
-    Joint = "Joint"
+    Joint = "Joint" # joint velocity included. If delta, joint velocity
     Cartesian = "Cartesian"
     JointOnly = "JointOnly"
 

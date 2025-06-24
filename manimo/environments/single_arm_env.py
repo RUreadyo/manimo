@@ -31,11 +31,13 @@ class SingleArmEnv(Env):
             Defaults to 30.
         """
         # TODO: Add support for accessing the actuators and sensors by name
-        self.actuators = [
-            hydra.utils.instantiate(actuators_cfg[actuator_type][actuator])
-            for actuator_type in actuators_cfg
-            for actuator in actuators_cfg[actuator_type]
-        ]
+        self.actuators = []
+        if actuators_cfg:
+            self.actuators = [
+                hydra.utils.instantiate(actuators_cfg[actuator_type][actuator])
+                for actuator_type in actuators_cfg
+                for actuator in actuators_cfg[actuator_type]
+            ]
         self.sensors = []
         if sensors_cfg:
             self.sensors = [
@@ -63,11 +65,19 @@ class SingleArmEnv(Env):
             obs.update(actuator.get_obs())
         return obs
 
+
+    def get_actuator_obs(self):
+        obs = {}
+        for actuator in self.actuators:
+            obs.update(actuator.get_obs())
+        return obs
+    
+    
     def step(
         self, actions: Optional[np.ndarray] = None
     ) -> Tuple[ObsDict, float, bool, Dict]:
         """
-        Step the environment forward
+        Step the environment foactuatorrward
         Args:
             actions (Optional[np.ndarray], optional):
             The actions to take. Defaults to None.
@@ -77,6 +87,7 @@ class SingleArmEnv(Env):
             and any info
         """
         obs = {}
+        # import ipdb; ipdb.set_trace()
         if actions is not None:
             for i, action in enumerate(actions):
                 # self.actuators[i].step(action)

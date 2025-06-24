@@ -3,7 +3,8 @@ gripper0:
   _target_: manimo.actuators.grippers.PolymetisGripper
   gripper_cfg:
     server:
-      ip_address: "172.16.0.1"
+      # ip_address: "172.16.0.1"
+      ip_address: "robot2"
       port: 50052
     speed: 0.1
     force: 1.0

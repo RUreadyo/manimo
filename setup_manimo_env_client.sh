@@ -3,7 +3,7 @@
 # Install polymetis from source
 cd ..
 # clone & create *gpu* env
-git clone git@github.com:hengyuan-hu/monometis.git
+git clone git@github.com:RUreadyo/monometis.git
 cd monometis/
 mamba env create -f polymetis/environment.yml -n manimo-latest
 conda activate manimo-latest

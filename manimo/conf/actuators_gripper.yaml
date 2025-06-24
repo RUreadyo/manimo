@@ -1,2 +1,3 @@
 defaults:
-  - gripper: franka_gripper
+  # - gripper: franka_gripper
+  - gripper: polymetis_gripper

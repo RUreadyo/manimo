@@ -16,11 +16,14 @@ class PolymetisGripper(Gripper):
         Args:
             gripper_cfg (DictConfig): The config for the gripper
         """
+                
         self.config = gripper_cfg
         self._gripper_interface = GripperInterface(
             ip_address=gripper_cfg.server.ip_address,
             # port=gripper_cfg.server.port,
         )
+        
+        
         print(f"connection to gripper established!")
         self.action_space = spaces.Box(
             0.0,
@@ -47,23 +50,17 @@ class PolymetisGripper(Gripper):
 
     def step(self, action):
         obs = {}
-        if action is not None:
-            gripper_close_width = max(
-                self.action_space.high[0] * self.config.close_width_pct,
-                self.action_space.low[0],
-            )
-            action = np.clip(
-                action, gripper_close_width, self.action_space.high[0]
-            )
-
-            # Allows gripper to close and open for objects of any width
-            if action != 0.0:
-                self._open_gripper()
-                self.is_closed = False
+        if action is not None:           
+            # for pi zero
+            # action is normalized from 0 to 1. Change to joint positions.
+            action = np.clip(action, 0, 1)
+            action = 1 - action
+            
+            if action < 0.5 :
+                self._close_gripper()
             else:
-                if not self.is_closed:
-                    self._close_gripper()
-                self.is_closed = True
+                self._open_gripper()            
+
 
         obs["eef_gripper_action"] = action
         return obs
@@ -82,6 +79,15 @@ class PolymetisGripper(Gripper):
         Returns:
             ObsDict: The observations
         """
+        # for pi-zero. 1 = closed, 0 = open.
         obs = {}
-        obs["eef_gripper_width"] = self._gripper_interface.get_state().width
+        width = self._gripper_interface.get_state().width
+        
+        obs["eef_gripper_width"] = width / self._gripper_interface.metadata.max_width
+        obs["eef_gripper_width"] = np.clip(
+            obs["eef_gripper_width"], 0, 1
+        )
+        obs["eef_gripper_width"] = 1- obs["eef_gripper_width"]
+
+        
         return obs

@@ -88,7 +88,7 @@ class TeleopAgent(Agent):
 
         return lin_vel, rot_vel
 
-    def get_action(self, obs: ObsDict) -> Optional[np.ndarray]:
+    def get_action(self, obs: ObsDict, is_human=False) -> Optional[np.ndarray]:
         """
         Get the action from the agent
 
@@ -102,10 +102,17 @@ class TeleopAgent(Agent):
         """
         # Obtain info from teleop device
         control_en, grasp_en, vr_pose_curr, buttons = self.teleop.get_state()
+
+        if is_human:
+            return None, None, buttons
+
+
         vr_pos, vr_quat = vr_pose_curr
         robot_pos = obs["eef_pos"]
         robot_quat = obs["eef_rot"]
 
+
+        
         # option to use gripper
         if self.use_gripper:
             # TODO: implement gripper actions

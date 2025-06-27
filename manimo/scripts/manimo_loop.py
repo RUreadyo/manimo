@@ -30,7 +30,7 @@ class ManimoLoop:
         traj_idx = 0
         while True:
             import ipdb; ipdb.set_trace()
-            print(f"collecting trajectory {traj_idx} after 5 seconds...")
+            print(f"Type c+enter! After it would start collecting trajectory {traj_idx} after 5 seconds...")
             time.sleep(5)
             
             obs, _ = self.env.reset()
